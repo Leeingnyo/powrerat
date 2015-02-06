@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206161507) do
+ActiveRecord::Schema.define(version: 20150206183441) do
+
+  create_table "devices", force: true do |t|
+    t.string   "d_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "site_id"
+  end
+
+  add_index "devices", ["site_id"], name: "index_devices_on_site_id"
 
   create_table "pikachus", force: true do |t|
     t.integer  "remaining_power"
@@ -19,6 +28,13 @@ ActiveRecord::Schema.define(version: 20150206161507) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "max_power"
+  end
+
+  create_table "sites", force: true do |t|
+    t.string   "s_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
