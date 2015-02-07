@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+	root 'sites#index'
 	get 'sites/usage_all' => 'sites#usage_all', as: :usage_all
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

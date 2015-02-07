@@ -1,4 +1,7 @@
 class SitesController < ApplicationController
+	def index
+	end
+
 	def usage_all
 		timestamp = params[:timestamp]
 		if timestamp == nil
