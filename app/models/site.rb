@@ -7,9 +7,6 @@ class Site < ActiveRecord::Base
 	def self.usage_all(timestamp)
 		usage_all = Array.new
 		all.each do |x|
-			puts x.name
-		end
-		all.each do |x|
 			usage_all << Hash["name", x.name, "usage", x.usage(timestamp)]
 		end
 		return usage_all
@@ -23,5 +20,21 @@ class Site < ActiveRecord::Base
 		res = http.request(req)
 		parse = JSON.parse(res.body)
 		return parse["meteringPeriodUsage"]
+	end
+	
+	def self.active_all
+		active_all = Array.new
+		all.each do |x|
+			active_all << Hash["name", x.name, "active_power", x.active_power()]
+		end
+		return active_all
+	end
+
+	def active_power
+		i = 0
+		devices.each do |x|
+			i += x.get_active_power()
+		end
+		return i
 	end
 end

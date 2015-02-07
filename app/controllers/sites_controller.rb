@@ -10,4 +10,8 @@ class SitesController < ApplicationController
 			render json: Site.usage_all(timestamp.to_i)
 		end
 	end
+
+	def active_all
+		render json: Site.active_all
+	end
 end
