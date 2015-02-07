@@ -14,4 +14,8 @@ class SitesController < ApplicationController
 	def active_all
 		render json: Site.active_all
 	end
+
+	def active_appliances_all
+		render json: Site.active_appliances_all
+	end
 end

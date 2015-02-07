@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206183441) do
+ActiveRecord::Schema.define(version: 20150207094215) do
 
   create_table "devices", force: true do |t|
     t.string   "d_id"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20150206183441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "max_power"
+    t.string   "cause_of_death_2"
+    t.integer  "survival"
   end
 
   create_table "sites", force: true do |t|

@@ -37,4 +37,38 @@ class Site < ActiveRecord::Base
 		end
 		return i
 	end
+
+	def self.active_appliances_all
+		active_appliances = Array.new
+		all.each do |x|
+			#next if x.id != 1
+			active_appliances << x.active_appliances
+		end
+		return active_appliances
+	end
+
+	def active_appliances
+		uri = URI.parse("http://escamp.ongetit.com/1.1/sites/" + s_id + "/realtime/info/appliances")
+		http = Net::HTTP.new(uri.host, uri.port)
+		req = Net::HTTP::Get.new(uri)
+		req["Authorization"] = "Basic ZDE4NjMwYmQyZjI5NGY1ZTg1OGU4M2Q3YmNkMjViYzk="
+		res = http.request(req)
+		parse = JSON.parse(res.body)
+		parse.keys
+		active_appliance = Array.new
+		parse.keys.each do |key|
+			uri = URI.parse("http://escamp.ongetit.com/1.1/appliances/" + key.to_s)
+			http = Net::HTTP.new(uri.host, uri.port)
+			req = Net::HTTP::Get.new(uri)
+			req["Authorization"] = "Basic ZDE4NjMwYmQyZjI5NGY1ZTg1OGU4M2Q3YmNkMjViYzk="
+			res = http.request(req)
+			parse_ = JSON.parse(res.body)
+			ar = Array.new
+			parse[key].each do |par|
+				ar << par["active_power"]
+			end
+			active_appliance << {key: key, active_power: ar, name: parse_["name"]}
+		end
+		return active_appliance
+	end
 end
