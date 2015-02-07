@@ -60,6 +60,34 @@
 			}
 		})
 	}
+	function active_appliances_all(){
+		$.ajax({
+			url	: '/sites/active_appliances_all'
+			,type	: 'GET'
+			,cache	: 'false'
+			,success	: function(data){
+				var active_array = []
+				for (i = 1 ; i < data.length ; i++){
+					for (j = 0 ; j < data[i].length ; j++){
+						a = 0
+						for (k = 0 ; k , data[i][j]["active_power"].length ; k++)
+							a += data[i][j]["active_power"][k];
+						active_array[i - 1] = [data[i].name, data[i].active_power]
+					}
+				}
+				var chart = c3.generate({
+				    data: {
+					columns: active_array,
+ 					type : 'donut'
+				    },
+				    donut: {
+			    		title: "실시간 기기들 전력소모량"
+				    },
+				    bindto: '#testChart'
+				});
+			}
+		})
+	}
 	usage_all()
 	active_all()
 	</script>
