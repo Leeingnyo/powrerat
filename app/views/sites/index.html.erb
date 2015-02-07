@@ -5,14 +5,50 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<%= stylesheet_link_tag "c3.css" %>
-	<%= javascript_include_tag "c3.js" %>
-	<%= javascript_include_tag "jquery-1.11.2.js" %>
+	<%= stylesheet_link_tag "pwrrat.css" %>
+	<%= stylesheet_link_tag "animate.css" %>
 </head>
 <body>
-	<div>버튼</div>
-	<div id="chart2"></div>
-	<div id="testChart"></div>
+	<nav class="top">
+		<h1 class="tlt">살아남아라! 전력쥐!</h1>
+	</nav>
+	<section class="side">
+		<div class="gameView">
+			<div class="character">
+				<img id="pikachu" align="middle" src=<%= asset_path "pika1.gif" %> /><br>
+			</div>
+			<div class="buttons">
+				<a class="action-button shadow animate blue">누적 전력량</a>
+				<a class="action-button shadow animate red">현재 전력량</a>
+				<a class="action-button shadow animate green">역대 피카츄</a>
+				<a class="action-button shadow animate yellow">위험한 요소</a>
+			</div>
+		</div>
+	</section>
 
+	<section class="info">
+		<div class="graph">
+			<div class="graphTop">
+				<h2>Information</h2>
+			</div>
+			<div id="chart2"></div>
+		</div>
+	</section>
+
+	<%= javascript_include_tag "c3.js" %>
+	<%= javascript_include_tag "jquery-1.11.2.js" %>
+	<%= javascript_include_tag "jquery.textillate.js" %>
+	<%= javascript_include_tag "jquery.lettering.js" %>
+	<script>
+		var prm = new PowerRatManager();
+		$(function() {
+			$('.tlt').textillate({ 
+			  in: { effect: 'splat' },
+			  out: { effect: 'foldUnfold', sync: true },
+			  loop: true
+			});
+		});
+	</script>
 	<script>
 	function usage_all(){
 		$.ajax({
@@ -21,8 +57,8 @@
 			,cache	: 'false'
 			,success	: function(data){
 				var usage_array = []
-				for (i = 1 ; i < data.length ; i++){
-					usage_array[i - 1] = [data[i].name, data[i].usage]
+				for (i = 0 ; i < data.length ; i++){
+					usage_array[i] = [data[i].name, data[i].usage]
 				}
 				var chart = c3.generate({
 				    data: {
@@ -44,8 +80,8 @@
 			,cache	: 'false'
 			,success	: function(data){
 				var active_array = []
-				for (i = 1 ; i < data.length ; i++){
-					active_array[i - 1] = [data[i].name, data[i].active_power]
+				for (i = 0 ; i < data.length ; i++){
+					active_array[i] = [data[i].name, data[i].active_power]
 				}
 				var chart = c3.generate({
 				    data: {
@@ -55,7 +91,7 @@
 				    donut: {
 			    		title: "실시간 전력소모량"
 				    },
-				    bindto: '#testChart'
+				    bindto: '#chart2'
 				});
 			}
 		})
@@ -67,12 +103,12 @@
 			,cache	: 'false'
 			,success	: function(data){
 				var active_array = []
-				for (i = 1 ; i < data.length ; i++){
+				for (i = 0 ; i < data.length ; i++){
 					for (j = 0 ; j < data[i].length ; j++){
 						a = 0
-						for (k = 0 ; k , data[i][j]["active_power"].length ; k++)
+						for (k = 0 ; k < data[i][j]["active_power"].length ; k++)
 							a += data[i][j]["active_power"][k];
-						active_array[i - 1] = [data[i].name, data[i].active_power]
+						active_array[i] = [data[i][j].name, a]
 					}
 				}
 				var chart = c3.generate({
@@ -83,12 +119,12 @@
 				    donut: {
 			    		title: "실시간 기기들 전력소모량"
 				    },
-				    bindto: '#testChart'
+				    bindto: '#chart2'
 				});
 			}
 		})
 	}
 	usage_all()
-	active_all()
 	</script>
+	<%= javascript_include_tag "pwrrat.js" %>
 </body>
