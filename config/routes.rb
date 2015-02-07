@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+	root 'sites#index'
+	get 'sites/usage_all' => 'sites#usage_all'
+	get 'sites/active_all' => 'sites#active_all'
+	get 'sites/active_appliances_all' => 'sites#active_appliances_all'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

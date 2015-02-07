@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Power Rat</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<%= stylesheet_link_tag "c3.css" %>
+	<%= javascript_include_tag "c3.js" %>
+	<%= javascript_include_tag "jquery-1.11.2.js" %>
+</head>
+<body>
+	<div>버튼</div>
+	<div id="chart2"></div>
+	<div id="testChart"></div>
+
+	<script>
+	function usage_all(){
+		$.ajax({
+			url	: '/sites/usage_all?timestamp=' + new Date().getTime()
+			,type	: 'GET'
+			,cache	: 'false'
+			,success	: function(data){
+				var usage_array = []
+				for (i = 1 ; i < data.length ; i++){
+					usage_array[i - 1] = [data[i].name, data[i].usage]
+				}
+				var chart = c3.generate({
+				    data: {
+					columns: usage_array,
+ 					type : 'donut'
+				    },
+				    donut: {
+			    		title: "현재까지 소모한 전력량"
+				    },
+				    bindto: '#chart2'
+				});
+			}
+		})
+	}
+	function active_all(){
+		$.ajax({
+			url	: '/sites/active_all'
+			,type	: 'GET'
+			,cache	: 'false'
+			,success	: function(data){
+				var active_array = []
+				for (i = 1 ; i < data.length ; i++){
+					active_array[i - 1] = [data[i].name, data[i].active_power]
+				}
+				var chart = c3.generate({
+				    data: {
+					columns: active_array,
+ 					type : 'bar'
+				    },
+				    donut: {
+			    		title: "실시간 전력소모량"
+				    },
+				    bindto: '#testChart'
+				});
+			}
+		})
+	}
+	usage_all()
+	active_all()
+	</script>
+</body>
