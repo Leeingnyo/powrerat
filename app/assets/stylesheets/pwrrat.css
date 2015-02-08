@@ -48,8 +48,9 @@ body {
 #num_info {
 	padding: 10px;
 	clear: both;
-	font-size: 25px;
+	font-size: 30px;
 	text-shadow: 1px 1px 0px black;
+	text-align: center;
 }
 
 .graph {
@@ -76,6 +77,11 @@ body {
 .buttons a {
 	width: 43%;
 	height: 70px;
+}
+
+.buttons a:hover {
+	color: white;
+	text-decoration: none;
 }
 
 #pikachu {
