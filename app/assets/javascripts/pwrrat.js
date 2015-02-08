@@ -32,6 +32,10 @@ _._bindEvents = function() {
 	//	new deadPika(that);
 		active_appliances_all()
 	});
+
+	$('#pikachu').click(function() {
+		$('audio')[pika_status].play()
+	});
 }
 
 _.deadPika = function(that) {
