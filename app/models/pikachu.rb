@@ -22,7 +22,7 @@ class Pikachu < ActiveRecord::Base
 			d += x.active_power
 		end
 		puts d / 100000
-		self.remaining_power -= d / 10000
+		self.remaining_power -= d / 100000
 		self.save
 	end
 

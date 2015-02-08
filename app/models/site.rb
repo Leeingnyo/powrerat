@@ -69,7 +69,7 @@ class Site < ActiveRecord::Base
 			parse[key].each do |par|
 				ar << par["active_power"]
 			end
-			active_appliance << {key: key, active_power: ar, name: name + ":" + parse_["name"].to_s}
+			active_appliance << {key: key, active_power: ar, name: name + "_" + parse_["name"].to_s}
 		end
 		return active_appliance
 	end

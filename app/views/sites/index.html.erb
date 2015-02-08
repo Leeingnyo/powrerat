@@ -82,6 +82,7 @@
 				}
 				$('#chart1').html('')
 				$('#chart2').html('')
+				$('.graphTop h2 small').html('')
 				var chart = c3.generate({
 				    data: {
 					columns: usage_array,
@@ -128,14 +129,18 @@
 			,cache	: 'false'
 			,success	: function(data){
 				var active_array = []
+				c = 0
 				for (i = 0 ; i < data.length ; i++){
 					for (j = 0 ; j < data[i].length ; j++){
 						a = 0
-						for (k = 0 ; k < data[i][j]["active_power"].length ; k++)
+						for (k = 0 ; k < data[i][j]["active_power"].length ; k++){
 							a += data[i][j]["active_power"][k];
-						active_array[i] = [data[i][j].name, a]
+						}
+						active_array[c] = [data[i][j].name, a]
+						c+=1
 					}
 				}
+				console.log(active_array)
 				$('#chart1').html('')
 				$('#chart2').html('')
 				$('.graphTop h2 small').html('')
@@ -148,6 +153,9 @@
 			    		title: "실시간 기기들 전력소모량"
 				    },
 				    bindto: '#chart2'
+				});
+				chart.resize({
+				  height: 650
 				});
 			}
 		})
@@ -194,12 +202,15 @@
 					usage_array[i] = [data1[i].name, data1[i].usage]
 				}
 				var active_array = []
+				c = 0
 				for (i = 0 ; i < data2.length ; i++){
 					for (j = 0 ; j < data2[i].length ; j++){
 						a = 0
-						for (k = 0 ; k < data2[i][j]["active_power"].length ; k++)
+						for (k = 0 ; k < data2[i][j]["active_power"].length ; k++){
 							a += data2[i][j]["active_power"][k];
-						active_array[i] = [data2[i][j].name, a]
+						}
+						active_array[c] = [data2[i][j].name, a]
+						c+=1
 					}
 				}
 				$('#chart1').html('')
@@ -218,13 +229,16 @@
 				var chart_ = c3.generate({
 				    data: {
 					columns: active_array,
- 					type : 'bar'
+ 					type : 'donut'
 				    },
 				    donut: {
 			    		title: "실시간 전력소모량"
 				    },
 				    bindto: '#chart2'
 				});
+				chart_.resize({
+                                  height: 650
+                                });
 			}
 		})
 	}

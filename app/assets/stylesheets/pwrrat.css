@@ -16,16 +16,16 @@ body {
 	float: left;
 	margin-top: 20px;
 	margin-left: 0.5%;
+	min-width: 460px;
 	width: 39%;
-	height: 800px;
+	height: 1100px;
 }
 
 .info {
 	float: left;
-	margin-left: 0.5%;
 	margin-top: 20px;
-	width: 59%;
-	height: 800px;
+	width: 60%;
+	height: 1100px;
 }
 
 .gameView {
@@ -34,7 +34,8 @@ body {
 }
 
 #hpBar {
-	width: 100%;
+	margin: 0 2.5%;
+	width: 95%;
 	height: 20px;
 	background-color: black;
 }
