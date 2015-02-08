@@ -29,6 +29,7 @@
 				<a class="action-button shadow animate green">역대 피카츄</a>
 				<a class="action-button shadow animate yellow">위험한 요소</a>
 			</div>
+			<p id="num_info">지금까지 <span></span> 마리의 전력쥐가 기절했습니다.</p>
 			<div style="clear: both;"></div>
 		</div>
 	</section>
@@ -36,7 +37,7 @@
 	<section class="info">
 		<div class="graph">
 			<div class="graphTop">
-				<h2>Information</h2>
+				<h2>Information <small></small></h2>
 			</div>
 			<div id="chart1"></div>
 			<div id="chart2"></div>
@@ -96,6 +97,7 @@
 				}
 				$('#chart1').html('')
 				$('#chart2').html('')
+				$('.graphTop h2 small').html('')
 				var chart = c3.generate({
 				    data: {
 					columns: active_array,
@@ -126,6 +128,7 @@
 				}
 				$('#chart1').html('')
 				$('#chart2').html('')
+				$('.graphTop h2 small').html('')
 				var chart = c3.generate({
 				    data: {
 					columns: active_array,
@@ -160,10 +163,58 @@
 					$('#pikachu')[0].src = '/assets/pika1.gif';
 					$('#pikachu')[0].style.paddingTop = '0px';
 				}
+				$('#num_info span').html(data.until - 1)
 			}
 		})
 	}
 	pikachu_info_timer = $.timer(get_pikachu_info, 2000, true)
+	function get_pikachu_info_(num){
+		$.ajax({
+			url	: '/pikachus_info?num=' + num
+			,type	: 'GET'
+			,cache	: 'false'
+			,success	: function(data){
+				data1 = JSON.parse(data.cause_of_deaths[0])
+				data2 = JSON.parse(data.cause_of_deaths[1])
+				var usage_array = []
+				for (i = 0 ; i < data1.length ; i++){
+					usage_array[i] = [data1[i].name, data1[i].usage]
+				}
+				var active_array = []
+				for (i = 0 ; i < data2.length ; i++){
+					for (j = 0 ; j < data2[i].length ; j++){
+						a = 0
+						for (k = 0 ; k < data2[i][j]["active_power"].length ; k++)
+							a += data2[i][j]["active_power"][k];
+						active_array[i] = [data2[i][j].name, a]
+					}
+				}
+				$('#chart1').html('')
+				$('#chart2').html('')
+				$('.graphTop h2 small').html(($('p > span').html() - num + 2) + '번째')
+				var chart = c3.generate({
+				    data: {
+					columns: usage_array,
+ 					type : 'donut'
+				    },
+				    donut: {
+			    		title: "현재까지 소모한 전력량"
+				    },
+				    bindto: '#chart1'
+				});
+				var chart_ = c3.generate({
+				    data: {
+					columns: active_array,
+ 					type : 'bar'
+				    },
+				    donut: {
+			    		title: "실시간 전력소모량"
+				    },
+				    bindto: '#chart2'
+				});
+			}
+		})
+	}
 	</script>
 	<%= javascript_include_tag "pwrrat.js" %>
 </body>

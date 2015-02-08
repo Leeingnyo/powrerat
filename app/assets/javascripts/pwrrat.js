@@ -15,6 +15,7 @@ _._initialize = function() {
 
 _._bindEvents = function() {
 	var that = this;
+	num = 1;
 
 	$('.blue').click(function() {
 		usage_all()
@@ -23,6 +24,9 @@ _._bindEvents = function() {
 		active_all()
 	});
 	$('.green').click(function() {
+		if (num > 5) num = 1;
+		num++;
+		get_pikachu_info_(num);
 	});
 	$('.yellow').click(function() {
 	//	new deadPika(that);

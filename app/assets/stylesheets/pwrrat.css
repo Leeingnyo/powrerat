@@ -17,7 +17,7 @@ body {
 	margin-top: 20px;
 	margin-left: 0.5%;
 	width: 39%;
-	height: 600px;
+	height: 800px;
 }
 
 .info {
@@ -25,7 +25,7 @@ body {
 	margin-left: 0.5%;
 	margin-top: 20px;
 	width: 59%;
-	height: 600px;
+	height: 800px;
 }
 
 .gameView {
@@ -45,9 +45,20 @@ body {
 	background-color: red;
 }
 
+#num_info {
+	padding: 10px;
+	clear: both;
+	font-size: 25px;
+	text-shadow: 1px 1px 0px black;
+}
+
 .graph {
 	background-color: #e74c3c;
 	height: 100%;
+}
+
+.c3-chart-arcs-title {
+	font-size: 14px;
 }
 
 #chart2 {
