@@ -15,6 +15,7 @@ class Site < ActiveRecord::Base
 	def usage(timestamp)
 		uri = URI.parse("http://escamp.ongetit.com/1.1/sites/" + s_id + "/meteringUsage?timestamp=" + timestamp.to_s)
 		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = false
 		req = Net::HTTP::Get.new(uri)
 		req["Authorization"] = "Basic ZDE4NjMwYmQyZjI5NGY1ZTg1OGU4M2Q3YmNkMjViYzk="
 		res = http.request(req)
@@ -50,6 +51,7 @@ class Site < ActiveRecord::Base
 	def active_appliances
 		uri = URI.parse("http://escamp.ongetit.com/1.1/sites/" + s_id + "/realtime/info/appliances")
 		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = false
 		req = Net::HTTP::Get.new(uri)
 		req["Authorization"] = "Basic ZDE4NjMwYmQyZjI5NGY1ZTg1OGU4M2Q3YmNkMjViYzk="
 		res = http.request(req)

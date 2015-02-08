@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Power Rat</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<link rel="stylesheet"  href="./c3.css" type="text/css"></link>
+	<link rel="stylesheet"  href="./pwrrat.css" type="text/css"></link>
+	<link rel="stylesheet"  href="./animate.css" type="text/css"></link>
+	<script src="./c3.js"></script>
+	<script src="./jquery-1.11.2.js"></script>
+	<script src="./jquery.textillate.js"></script>
+	<script src="./jquery.lettering.js"></script>
+	<script src="./pwrrat.js"></script>
+</head>
+<body>
+	<nav class="top">
+		<h1 class="tlt">살아남아라! 전력쥐!</h1>
+	</nav>
+	<section class="side">
+		<div class="gameView">
+			<div class="character">
+				<img id="pikachu" align="middle" src="./pika1.gif" /><br>
+			</div>
+			<div class="buttons">
+				<a href="#" class="action-button shadow animate blue">누적 전력량</a>
+				<a href="#" class="action-button shadow animate red">현재 전력량</a>
+				<a href="#" class="action-button shadow animate green">역대 피카츄</a>
+				<a href="#" class="action-button shadow animate yellow">위험한 요소</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="info">
+		<div class="graph">
+			<div class="graphTop">
+				<h2>Information</h2>
+			</div>
+			<div id="chart2"></div>
+		</div>
+	</section>
+
+	<!--<div id="chart2"></div>
+	<div id="testChart"></div>-->
+
+	<script>
+		var prm = new PowerRatManager();
+		var chart = c3.generate({
+    	data: {
+        	columns: [
+            	['기숙사1', 30],
+            	['기숙사2', 120],
+            	['기숙사3', 150],
+            	['기숙사4', 250],
+        	],
+        	type : 'donut',
+        	onclick: function (d, i) { console.log("onclick", d, i); },
+        	onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        	onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    	},
+    	donut: {
+    	    title: "현재까지 소모한 전력량"
+    	},
+		bindto: '#chart2'
+		});
+
+		/*var ccc = c3.generate({
+    	data: {
+        	columns: [
+            	['기숙사1', 10],
+            	['기숙사2', 20],
+            	['기숙사3', 15],
+            	['기숙사4', 35],
+        	],
+        	type : 'donut',
+        	onclick: function (d, i) { console.log("onclick", d, i); },
+        	onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        	onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    	},
+    	donut: {
+    	    title: "실시간 전력소모량"
+    	},
+		bindto: '#testChart'
+		});*/
+		$(function() {
+			$('.tlt').textillate({ 
+			  in: { effect: 'splat' },
+			  out: { effect: 'foldUnfold', sync: true },
+			  loop: true
+			});
+		});
+	</script>
+</body>

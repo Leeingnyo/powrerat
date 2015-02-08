@@ -17,18 +17,12 @@ _._bindEvents = function() {
 	var that = this;
 
 	$('.blue').click(function() {
-		$('#pikachu')[0].src = '/assets/pika1.gif';
-		$('#pikachu')[0].style.top = '120px';
 		usage_all()
 	});
 	$('.red').click(function() {
-		$('#pikachu')[0].src = '/assets/pika2.gif';
-		$('#pikachu')[0].style.top = '120px';
 		active_all()
 	});
 	$('.green').click(function() {
-		$('#pikachu')[0].src = 'assets/pika3.gif';
-		$('#pikachu')[0].style.top = '160px';
 	});
 	$('.yellow').click(function() {
 	//	new deadPika(that);

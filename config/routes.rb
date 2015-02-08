@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 	get 'sites/usage_all' => 'sites#usage_all'
 	get 'sites/active_all' => 'sites#active_all'
 	get 'sites/active_appliances_all' => 'sites#active_appliances_all'
+	get 'pikachu_info' => 'pikachus#realtime_info'
+	get 'pikachus_info' => 'pikachus#info'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
